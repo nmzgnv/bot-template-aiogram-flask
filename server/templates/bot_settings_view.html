@@ -1,0 +1,20 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="input-group mb-3" style="display: flex; flex-direction: row; flex-flow: wrap;">
+    <input type="text" class="form-control" placeholder="Bot token" aria-label="Bot token"
+           aria-describedby="basic-addon1"
+           style="max-width:400px; min-width:100px; margin-right:50px;" id="tokenInputField">
+    <button type="button" class="btn btn-secondary" id="changeTokenButton">Change token</button>
+</div>
+
+<br>
+<div class="container-sm">
+    <button type="button" class="btn btn-danger" id="stopBotButton">Stop bot</button>
+    <button type="button" class="btn btn-secondary" id="restartBotButton">Restart bot</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/bot_settings.js') }}"></script>
+
+{% endblock %}
