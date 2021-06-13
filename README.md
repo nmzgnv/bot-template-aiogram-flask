@@ -6,15 +6,15 @@ Template for creating scalable bots with aiogram
 * All necessary directories for bot development  
 * Basic database tables (ORM)
 
-###Development
-####Technologies
+### Development
+#### Technologies
 * Python 3.8
 * Aiogram
 * Flask
 * SQLAlchemy
 * multiprocessing
 
-####Project structure
+#### Project structure
 * bot
     * filters
     * handlers
