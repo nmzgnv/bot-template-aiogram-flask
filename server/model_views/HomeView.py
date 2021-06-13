@@ -1,15 +1,18 @@
 import json
 from datetime import datetime, timedelta
-from flask_admin import BaseView, expose
+from flask_admin import BaseView, expose, AdminIndexView
 from sqlalchemy import Date, cast, func
 
 from database.models import User, Order
 
 
-class HomeView(BaseView):
+class HomeView(AdminIndexView):
     @staticmethod
-    def get_chart_data():
-        period = 30  # days
+    def get_chart_data(period=30):
+        """
+        :param period: number of last days to receive data
+        :return: json object
+        """
         from_date = datetime.now().date() - timedelta(days=period)
 
         labels = []

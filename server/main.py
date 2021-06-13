@@ -8,7 +8,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_ckeditor import CKEditor
 
 from bot.main import bot_init
-from config import PORT, USE_LOCAL_VARIABLES, LOCAL_HOST, PRODUCTION_HOST
+from config import PORT, USE_LOCAL_VARIABLES, LOCAL_HOST, PRODUCTION_HOST, BOT_TOKEN
 
 from daemon import daemon_init
 from database.loader import app, db
@@ -31,14 +31,15 @@ def start_page():
 @app.route('/change_token', methods=['POST'])
 def change_token():
     new_token = request.form.get('token')
-    logging.info("bot token changed")
     os.environ["BOT_TOKEN"] = new_token
+    logging.info("Bot token was changed. Restarting the bot...")
+    restart_bot()
     return make_response({'result': 'success'}, 200)
 
 
 @app.route('/get_current_bot_token', methods=['GET'])
 def get_current_token():
-    token = os.getenv('BOT_TOKEN', 'None')
+    token = str(BOT_TOKEN)
     return make_response({'token': token}, 200)
 
 
@@ -61,7 +62,7 @@ def restart_bot():
     stop_bot_process()
     telegram_bot = multiprocessing.Process(target=bot_init)
     telegram_bot.start()
-    logging.info(f"Telegram bot was launched")
+    logging.info(f"Bot was launched")
     return make_response({'result': 'success'}, 200)
 
 
@@ -74,9 +75,9 @@ def run_modules():
 
 
 def init_admin_panel():
-    admin = Admin(app, name='bot config', template_mode='bootstrap3')
+    admin = Admin(app, name='bot config', template_mode='bootstrap3',
+                  index_view=HomeView(name='Home', menu_icon_type='glyph', menu_icon_value='glyphicon-home'))
 
-    admin.add_view(HomeView(name='Home', menu_icon_type='glyph', menu_icon_value='glyphicon-home'))
     admin.add_view(ModelView(User, db.session, name='Users'))
     admin.add_view(ModelView(Order, db.session, name='Orders'))
     admin.add_view(ModelView(Product, db.session, name='Products'))
