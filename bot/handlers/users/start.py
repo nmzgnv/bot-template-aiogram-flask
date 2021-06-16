@@ -12,6 +12,6 @@ async def bot_start(message: types.Message):
     command_args = message.text.split('start ')
     if len(command_args) > 1:
         referer_id = command_args[1]
-    User.register(message.from_user, referer_id=referer_id)
+    User.register(message.from_user, referer_id=referer_id, chat_id=message.chat.id)
 
     await message.answer(_('start_text').format(message.from_user.full_name))
