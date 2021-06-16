@@ -19,7 +19,7 @@ def format_text_to_send(message_text):
     """
     message_text = re.sub("(?s)<div(?: [^>]*)?>.*?</div>", "", message_text)  # removing divs with content
     message_text = re.sub("<br>|<br />|<br/>|</p>", '\n', message_text)
-    message_text = re.sub("<p>|</p>|<ul>|</ul>|<li>|</li>|<ol>|</ol>|<div>|</div>|<em>|</em>|&nbsp;", "", message_text)
+    message_text = re.sub("<p>|</p>|<ul>|</ul>|<li>|</li>|<ol>|</ol>|<div>|</div>|&nbsp;", "", message_text)
     return message_text
 
 

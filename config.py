@@ -1,7 +1,7 @@
 import os
 
-DEBUG = os.getenv('DEBUG', False)
-USE_LOCAL_VARIABLES = os.getenv('USE_LOCAL_VARIABLES', True)
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+USE_LOCAL_VARIABLES = os.getenv('USE_LOCAL_VARIABLES', 'True') == 'True'
 
 # bot
 BOT_TOKEN = os.getenv('BOT_TOKEN')
@@ -11,6 +11,10 @@ ADMINS = [492621220]
 PORT = int(os.environ.get("PORT", 5000))
 PRODUCTION_HOST = '0.0.0.0'
 LOCAL_HOST = '127.0.0.1'
+
+# main admin data
+ADMIN_EMAIL = os.getenv('ADMIN_PASSWORD', 'admin@admin')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'admin')
 
 # database
 LOCAL_DATABASE_URL = 'sqlite:///Main.db'

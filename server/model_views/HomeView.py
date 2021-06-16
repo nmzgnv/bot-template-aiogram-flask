@@ -4,9 +4,10 @@ from flask_admin import BaseView, expose, AdminIndexView
 from sqlalchemy import Date, cast, func
 
 from database.models import User, Order
+from server.model_views.mixins.AuthMixin import AuthMixin
 
 
-class HomeView(AdminIndexView):
+class HomeView(AuthMixin, AdminIndexView):
     @staticmethod
     def get_chart_data(period=30):
         """

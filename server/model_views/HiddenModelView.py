@@ -1,7 +1,9 @@
 from flask_admin.contrib.sqla import ModelView
 
+from server.model_views.mixins.AuthMixin import AuthMixin
 
-class HiddenModelView(ModelView):
+
+class HiddenModelView(AuthMixin, ModelView):
 
     def is_visible(self):
         return False
