@@ -1,13 +1,18 @@
 ## Telegram bot template
+
 Template for creating scalable bots with aiogram
 
 ### What's in the template?
-* Admin panel with the ability to view/edit/delete the database + analytics charts + ability to edit texts used in the bot + bot total control 
-* All necessary directories for bot development  
+
+* Admin panel with the ability to view/edit/delete the database + analytics charts + ability to edit texts used in the
+  bot + bot total control
+* All necessary directories for bot development
 * Basic database tables (ORM)
 
 ### Development
+
 #### Technologies
+
 * Python 3.8
 * Aiogram
 * Flask
@@ -15,6 +20,7 @@ Template for creating scalable bots with aiogram
 * multiprocessing
 
 #### Project structure
+
 * bot
     * filters
     * handlers
@@ -28,10 +34,13 @@ Template for creating scalable bots with aiogram
     * templates
 * database
     * models
-    
+
 Application package is in `server/main.py`
 
-
 #### TODO
+
 Change flask-sqlalchemy to async sqlalchemy
 
+#### Have any questions??
+
+Telegram: @nmzgnv

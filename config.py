@@ -4,7 +4,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 USE_LOCAL_VARIABLES = os.getenv('USE_LOCAL_VARIABLES', 'True') == 'True'
 
 # bot
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+BOT_TOKEN = os.getenv('BOT_TOKEN', "1288081852:AAGCA-YApnvE6nYaULjU1ejv7NSx8G7PvAY")
 ADMINS = [492621220]
 
 # server

@@ -1,3 +1,8 @@
+import sys
+import pathlib
+
+sys.path.insert(0, str(pathlib.Path().resolve()).split('\server')[0])
+
 import logging
 import multiprocessing
 import os
