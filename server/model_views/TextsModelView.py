@@ -1,9 +1,8 @@
-import logging
-
 import flask
-from .CKEditorModelView import CKEditorModelView
 import requests
+from loguru import logger
 
+from .CKEditorModelView import CKEditorModelView
 from .mixins.AuthMixin import AuthMixin
 
 
@@ -12,6 +11,6 @@ class TextsModelView(AuthMixin, CKEditorModelView):
         if not is_created:  # Model was updated
             try:
                 ans = requests.post(flask.request.url_root + 'restart_bot')
-                logging.info(ans.text)
+                logger.info(ans.text)
             except Exception as error:
-                logging.error(f"Bot restart error: {error}")
+                logger.error(f"Bot restart error: {error}")

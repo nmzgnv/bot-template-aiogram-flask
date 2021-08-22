@@ -1,8 +1,9 @@
-﻿from database.models import Texts
-from database.loader import db
-import logging
-import re
+﻿import re
 
+from loguru import logger
+
+from database.loader import db
+from database.models import Texts
 
 base_texts = {
     "start_text": 'Это {}. Привет!',
@@ -30,7 +31,7 @@ def caсhe_texts():
     if Texts.query.count() != len(base_texts.keys()):
         # filling database by base texts
         deleted_rows_num = db.session.query(Texts).delete()
-        logging.info(f"Was deleted: {deleted_rows_num} rows from Texts table")
+        logger.info(f"Was deleted: {deleted_rows_num} rows from Texts table")
 
         for name, value in base_texts.items():
             text = Texts(name, value)

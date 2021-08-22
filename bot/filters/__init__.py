@@ -1,6 +1,3 @@
-from aiogram import Dispatcher
-
-from bot.loader import dp
 # from .is_admin import AdminFilter
 
 

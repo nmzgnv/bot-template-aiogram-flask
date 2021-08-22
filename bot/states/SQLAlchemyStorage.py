@@ -2,7 +2,6 @@ import json
 from typing import Union, Optional, AnyStr, Dict
 
 from aiogram.dispatcher.storage import BaseStorage
-from sqlalchemy import and_
 
 from database import db
 from database.models import User

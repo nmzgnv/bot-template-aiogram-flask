@@ -1,10 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from time import sleep
-import logging
+
+from loguru import logger
 
 
 class DaemonConfig:
-    OPERATING_HOURS = (0, )
+    OPERATING_HOURS = (0,)
     ERROR_COOLDOWN_TIME = 5 * 60
     COOLDOWN_TIME = 60 * 60
 
@@ -15,7 +16,7 @@ def daemon_init():
             try:
                 pass
             except Exception as error:
-                logging.info(str(error))
+                logger.error(str(error))
                 sleep(DaemonConfig.ERROR_COOLDOWN_TIME)
         else:
             sleep(DaemonConfig.COOLDOWN_TIME)

@@ -2,8 +2,8 @@ from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
 
 from bot.loader import dp
-from database.models import User
 from bot.texts import _
+from database.models import User
 
 
 @dp.message_handler(CommandStart())

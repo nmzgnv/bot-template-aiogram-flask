@@ -1,6 +1,6 @@
+from flask_admin.contrib.sqla import ModelView
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
-from flask_admin.contrib.sqla import ModelView
 
 
 class CKTextAreaWidget(TextArea):

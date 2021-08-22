@@ -1,9 +1,9 @@
-import sys
 import pathlib
+import sys
 
 sys.path.insert(0, str(pathlib.Path().resolve()).split('\server')[0])
 
-import logging
+from loguru import logger
 import multiprocessing
 import os
 
@@ -20,12 +20,14 @@ from config import PORT, USE_LOCAL_VARIABLES, LOCAL_HOST, PRODUCTION_HOST, BOT_T
 from daemon import daemon_init
 from database.loader import app, db
 from database.models import User, Texts, Order, Product, AdminUser
-from server.model_views import BotSettingsView, HiddenModelView
+from server.model_views import BotSettingsView
 from server.model_views.AdminConfig import Categories
 from server.model_views.AdminModelView import AdminModelView
 from server.model_views.HomeView import HomeView
 from server.model_views.TextsModelView import TextsModelView
 from server.auth import auth as auth_blueprint
+
+logger.add("debug.log", format='{time} {level} {message}', level="DEBUG", rotation="00:00", compression="zip")
 
 telegram_bot = multiprocessing.Process(target=bot_init)
 daemon = multiprocessing.Process(target=daemon_init)
@@ -44,7 +46,7 @@ def start_page():
 def change_token():
     new_token = request.form.get('token')
     os.environ["BOT_TOKEN"] = new_token
-    logging.info("Bot token was changed. Restarting the bot...")
+    logger.info("Bot token was changed. Restarting the bot...")
     restart_bot()
     return make_response({'result': 'success'}, 200)
 
@@ -59,7 +61,7 @@ def stop_bot_process():
     global telegram_bot
     telegram_bot.terminate()
     telegram_bot.kill()
-    logging.info(f"Bot is off")
+    logger.info(f"Bot is off")
 
 
 @app.route('/stop_bot', methods=['POST'])
@@ -74,7 +76,7 @@ def restart_bot():
     stop_bot_process()
     telegram_bot = multiprocessing.Process(target=bot_init)
     telegram_bot.start()
-    logging.info(f"Bot was launched")
+    logger.info(f"Bot was launched")
     return make_response({'result': 'success'}, 200)
 
 

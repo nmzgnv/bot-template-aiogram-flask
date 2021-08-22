@@ -1,7 +1,8 @@
 import json
 from datetime import datetime, timedelta
-from flask_admin import BaseView, expose, AdminIndexView
-from sqlalchemy import Date, cast, func
+
+from flask_admin import expose, AdminIndexView
+from sqlalchemy import func
 
 from database.models import User, Order
 from server.model_views.mixins.AuthMixin import AuthMixin

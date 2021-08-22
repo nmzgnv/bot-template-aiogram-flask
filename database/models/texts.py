@@ -1,5 +1,6 @@
-from database.loader import db
 from sqlalchemy import Column, Integer, String
+
+from database.loader import db
 
 
 class Texts(db.Model):

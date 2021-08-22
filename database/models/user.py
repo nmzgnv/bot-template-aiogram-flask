@@ -1,8 +1,9 @@
 import datetime
 
-from database.loader import db
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, and_
 from sqlalchemy.orm import relationship
+
+from database.loader import db
 
 
 class User(db.Model):

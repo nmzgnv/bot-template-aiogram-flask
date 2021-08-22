@@ -1,6 +1,7 @@
-from database.loader import db
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import relationship
+
+from database.loader import db
 
 
 class Product(db.Model):

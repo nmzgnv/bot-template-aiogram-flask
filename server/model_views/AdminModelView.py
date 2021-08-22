@@ -1,8 +1,8 @@
+from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
 
 from database.models import AdminUser
 from server.model_views.mixins.AuthMixin import AuthMixin
-from flask_admin.contrib.sqla import ModelView
 
 
 class AdminModelView(AuthMixin, ModelView):

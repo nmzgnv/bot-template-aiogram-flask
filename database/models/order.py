@@ -1,7 +1,8 @@
 import datetime
 
-from database.loader import db
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
+
+from database.loader import db
 
 
 class Order(db.Model):

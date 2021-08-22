@@ -1,8 +1,8 @@
 from flask_login import UserMixin
+from sqlalchemy import Column, Integer, String, Boolean
 from werkzeug.security import generate_password_hash
 
 from database.loader import db
-from sqlalchemy import Column, Integer, String, Boolean
 
 
 class AdminUser(UserMixin, db.Model):
