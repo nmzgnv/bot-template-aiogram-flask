@@ -35,3 +35,4 @@ WTForms==2.3.3
 yarl==1.6.3
 
 gino~=1.0.1
+python-dotenv~=0.19.0

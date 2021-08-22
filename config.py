@@ -1,10 +1,13 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 USE_LOCAL_VARIABLES = os.getenv('USE_LOCAL_VARIABLES', 'True') == 'True'
 
 # bot
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+BOT_TOKEN = os.getenv('BOT_SECRET_TOKEN')
 ADMINS = [492621220]
 
 # server

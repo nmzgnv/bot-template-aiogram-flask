@@ -1,5 +1,8 @@
 import sys
 import pathlib
+from dotenv import load_dotenv
+
+load_dotenv()
 
 sys.path.insert(0, str(pathlib.Path().resolve()).split('\server')[0])
 
