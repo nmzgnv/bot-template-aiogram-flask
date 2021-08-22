@@ -11,25 +11,18 @@ from flask_admin import Admin
 from flask import redirect, request, make_response, Flask
 from flask_admin.contrib.sqla import ModelView
 from flask_ckeditor import CKEditor
-from flask_login import LoginManager
 
 from bot.main import bot_init
 from config import PORT, USE_LOCAL_VARIABLES, LOCAL_HOST, PRODUCTION_HOST, BOT_TOKEN, ADMIN_EMAIL, ADMIN_PASSWORD
 
 from daemon import daemon_init
-from server.model_views import BotSettingsView
-from server.model_views.AdminConfig import Categories
-from server.model_views.AdminModelView import AdminModelView
 from server.model_views.HomeView import HomeView
-from server.model_views.TextsModelView import TextsModelView
-# from server.auth import auth as auth_blueprint
 
 telegram_bot = multiprocessing.Process(target=bot_init)
 daemon = multiprocessing.Process(target=daemon_init)
 daemon.daemon = True
 
-templates_folder = os.path.abspath('./server/templates')
-app = Flask(__name__, template_folder=templates_folder, static_folder=templates_folder + '/static', )
+app = Flask(__name__, static_folder='/static', )
 ckeditor = CKEditor(app)
 
 
