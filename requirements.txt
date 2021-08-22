@@ -33,3 +33,5 @@ urllib3==1.26.5
 Werkzeug==2.0.1
 WTForms==2.3.3
 yarl==1.6.3
+
+gino~=1.0.1

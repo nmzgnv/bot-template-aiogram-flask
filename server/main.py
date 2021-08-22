@@ -8,31 +8,29 @@ import multiprocessing
 import os
 
 from flask_admin import Admin
-from flask import redirect, request, make_response
+from flask import redirect, request, make_response, Flask
 from flask_admin.contrib.sqla import ModelView
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager
-from flask_migrate import Migrate
 
 from bot.main import bot_init
 from config import PORT, USE_LOCAL_VARIABLES, LOCAL_HOST, PRODUCTION_HOST, BOT_TOKEN, ADMIN_EMAIL, ADMIN_PASSWORD
 
 from daemon import daemon_init
-from database.loader import app, db
-from database.models import User, Texts, Order, Product, AdminUser
-from server.model_views import BotSettingsView, HiddenModelView
+from server.model_views import BotSettingsView
 from server.model_views.AdminConfig import Categories
 from server.model_views.AdminModelView import AdminModelView
 from server.model_views.HomeView import HomeView
 from server.model_views.TextsModelView import TextsModelView
-from server.auth import auth as auth_blueprint
+# from server.auth import auth as auth_blueprint
 
 telegram_bot = multiprocessing.Process(target=bot_init)
 daemon = multiprocessing.Process(target=daemon_init)
 daemon.daemon = True
 
+templates_folder = os.path.abspath('./server/templates')
+app = Flask(__name__, template_folder=templates_folder, static_folder=templates_folder + '/static', )
 ckeditor = CKEditor(app)
-migrate = Migrate(app, db)
 
 
 @app.route('/')
@@ -89,36 +87,33 @@ def run_modules():
 def init_admin_panel():
     admin = Admin(app, name='Admin panel', template_mode='bootstrap3',
                   index_view=HomeView(name='Home', menu_icon_type='glyph', menu_icon_value='glyphicon-home'))
-
-    admin.add_view(ModelView(User, db.session, name='Users'))
-    admin.add_view(ModelView(Order, db.session, name='Orders'))
-    admin.add_view(ModelView(Product, db.session, name='Products'))
-    admin.add_view(AdminModelView(db.session, category=Categories.MANAGEMENT))
-    admin.add_view(BotSettingsView(name='Bot', endpoint='bot_settings', category=Categories.MANAGEMENT))
-    admin.add_view(TextsModelView(Texts, db.session, category=Categories.MANAGEMENT))
+    #
+    # admin.add_view(ModelView(User, db.session, name='Users'))
+    # admin.add_view(ModelView(Order, db.session, name='Orders'))
+    # admin.add_view(ModelView(Product, db.session, name='Products'))
+    # admin.add_view(AdminModelView(db.session, category=Categories.MANAGEMENT))
+    # admin.add_view(BotSettingsView(name='Bot', endpoint='bot_settings', category=Categories.MANAGEMENT))
+    # admin.add_view(TextsModelView(Texts, db.session, category=Categories.MANAGEMENT))
 
 
 def init_server():
-    db.create_all()
-    db.session.commit()
-
     init_admin_panel()
 
     app.secret_key = 'secret'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.register_blueprint(auth_blueprint)
+    # app.register_blueprint(auth_blueprint)
     host = LOCAL_HOST if USE_LOCAL_VARIABLES else PRODUCTION_HOST
 
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
+    # login_manager = LoginManager()
+    # login_manager.login_view = 'auth.login'
+    # login_manager.init_app(app)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return AdminUser.query.get(int(user_id))
-
-    if AdminUser.query.count() == 0:
-        AdminUser.register(ADMIN_EMAIL, 'admin', ADMIN_PASSWORD, is_super_admin=True)
+    # @login_manager.user_loader
+    # def load_user(user_id):
+    #     return AdminUser.query.get(int(user_id))
+    #
+    # if AdminUser.query.count() == 0:
+    #     AdminUser.register(ADMIN_EMAIL, 'admin', ADMIN_PASSWORD, is_super_admin=True)
 
     run_modules()
     app.run(host=host, port=PORT, use_reloader=False)  # use_reloader=False to avoid conflict with multiprocessing

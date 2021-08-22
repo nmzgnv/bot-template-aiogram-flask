@@ -9,6 +9,7 @@ class AdminUser(UserMixin, db.Model):
     """
         Admin panel authentication model
     """
+    __tablename__ = 'admins'
     id = Column(Integer, primary_key=True)
     email = Column(String(100), unique=True)
     password = Column(String(100))

@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 
 
 class User(db.Model):
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 
     telegram_id = Column(String(40), unique=True)
