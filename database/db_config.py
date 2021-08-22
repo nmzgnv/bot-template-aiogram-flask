@@ -1,7 +1,6 @@
 import os
 
 from config import DEBUG, LOCAL_DATABASE_URL, DATABASE_URL, USE_LOCAL_VARIABLES
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
